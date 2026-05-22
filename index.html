@@ -1,0 +1,691 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Everything of Science</title>
+    <style>
+        /* --- HIGH VIBRANCY COLOR & ANIMATION ENGINE --- */
+        :root {
+            --bg-glass: rgba(255, 255, 255, 0.5);
+            --border-glass: rgba(255, 255, 255, 0.7);
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+
+            /* Hyper-Bright Neon Color Swatches */
+            --gradient-main: linear-gradient(135deg, #ff007f 0%, #7928ca 50%, #00dfd8 100%);
+            --story-neon: #ff007f;     /* Hot Pink */
+            --story-bg: rgba(255, 240, 246, 0.75);
+            --news-neon: #00dfd8;      /* Electric Turquoise */
+            --news-bg: rgba(224, 242, 254, 0.75);
+            --all-neon: #7928ca;       /* Royal Ultraviolet */
+            --about-neon: #f59e0b;     /* Cosmic Amber */
+            --about-bg: rgba(254, 243, 199, 0.75);
+
+            --card-shadow: 0 10px 40px -10px rgba(121, 40, 202, 0.08);
+            --hover-shadow: 0 25px 50px -12px rgba(255, 0, 127, 0.2);
+        }
+
+        /* Entry Keyframe Animations */
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+                filter: blur(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 0px rgba(121, 40, 202, 0)); }
+            50% { filter: drop-shadow(0 0 20px rgba(0, 223, 216, 0.4)); }
+            100% { filter: drop-shadow(0 0 0px rgba(121, 40, 202, 0)); }
+        }
+
+        body {
+            background-color: #f8fafc;
+            background-image:
+                radial-gradient(at 5% 5%, rgba(255, 0, 127, 0.12) 0px, transparent 50%),
+                radial-gradient(at 95% 5%, rgba(121, 40, 202, 0.12) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(0, 223, 216, 0.12) 0px, transparent 60%);
+            background-attachment: fixed;
+            color: var(--text-dark);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 80px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .workspace {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 55px;
+            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        header h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            margin: 0 0 16px 0;
+            letter-spacing: -0.05em;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 6s ease-in-out infinite;
+        }
+
+        header .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+
+        /* --- BRIGHT FROSTED GLASS SEARCH BOX --- */
+        .search-box-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto 45px auto;
+            animation: slideUpFade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 30px;
+            padding: 0 65px 0 30px;
+            font-size: 17px;
+            font-weight: 500;
+            color: var(--text-dark);
+            outline: none;
+            box-sizing: border-box;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--card-shadow);
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(121, 40, 202, 0.4);
+            box-shadow: 0 20px 40px -10px rgba(121, 40, 218, 0.2);
+            transform: scale(1.015);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 26px;
+            top: 18px;
+            font-size: 22px;
+            pointer-events: none;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .search-input:focus ~ .search-icon {
+            transform: scale(1.25) rotate(15deg);
+        }
+
+        /* --- GLASS NAVIGATION DECK --- */
+        .category-menu {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 50px;
+            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .menu-btn {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            color: var(--text-dark);
+            padding: 14px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-btn:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .btn-all:hover, .btn-all.active {
+            background: var(--all-neon); color: #fff;
+            border-color: var(--all-neon);
+            box-shadow: 0 12px 28px -5px rgba(121, 40, 202, 0.4);
+        }
+        .btn-story:hover, .btn-story.active {
+            background: var(--story-neon); color: #fff;
+            border-color: var(--story-neon);
+            box-shadow: 0 12px 28px -5px rgba(255, 0, 127, 0.4);
+        }
+        .btn-news:hover, .btn-news.active {
+            background: var(--news-neon); color: #fff;
+            border-color: var(--news-neon);
+            box-shadow: 0 12px 28px -5px rgba(0, 223, 216, 0.4);
+        }
+        .btn-about:hover, .btn-about.active {
+            background: var(--about-neon); color: #fff;
+            border-color: var(--about-neon);
+            box-shadow: 0 12px 28px -5px rgba(245, 158, 11, 0.4);
+        }
+        .btn-share {
+            border-color: #ff007f;
+            color: #ff007f;
+            background: rgba(255, 255, 255, 0.6);
+        }
+        .btn-share:hover {
+            background: var(--gradient-main) !important;
+            color: #fff !important;
+            border-color: transparent !important;
+            box-shadow: 0 12px 28px -5px rgba(255, 0, 127, 0.4);
+        }
+
+        /* --- MODERN CUSTOM SHARE MODAL DIALOG --- */
+        .share-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .share-modal {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border-glass);
+            border-radius: 28px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: var(--hover-shadow);
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        .share-modal-overlay.active { display: flex; }
+        .share-modal-overlay.active .share-modal { transform: translateY(0); }
+        .share-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 20px; color: var(--text-dark); }
+        .share-options-grid { display: flex; flex-direction: column; gap: 12px; }
+        .share-action-btn {
+            padding: 14px; border: 1px solid var(--border-glass); border-radius: 16px;
+            font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.25s ease;
+            display: flex; align-items: center; justify-content: center; gap: 10px; background: white;
+        }
+
+        /* --- DYNAMIC GLASS CARD DECK --- */
+        .results-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border-glass);
+            border-radius: 28px;
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            animation: slideUpFade 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .info-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: var(--hover-shadow);
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Dynamic Indicator Accents Fixed */
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            transition: height 0.3s ease;
+        }
+        .info-card[data-category="story"]::before { background: var(--story-neon); }
+        .info-card[data-category="news"]::before { background: var(--news-neon); }
+        .info-card[data-category="about"]::before { background: var(--about-neon); }
+
+        .info-card:hover::before { height: 9px; }
+
+        .category-tag {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 6px 16px;
+            border-radius: 14px;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        .info-card[data-category="story"] .category-tag { background: var(--story-bg); color: var(--story-neon); }
+        .info-card[data-category="news"] .category-tag { background: var(--news-bg); color: var(--news-neon); }
+        .info-card[data-category="about"] .category-tag { background: var(--about-bg); color: var(--about-neon); }
+
+        .info-card h2 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            margin: 0 0 14px 0;
+            color: var(--text-dark);
+            line-height: 1.35;
+            letter-spacing: -0.02em;
+        }
+
+        .snippet-text {
+            font-size: 1.1rem;
+            color: #334155;
+            line-height: 1.65;
+            margin-bottom: 18px;
+        }
+
+        .read-more-link {
+            font-size: 0.95rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s ease;
+        }
+        .info-card[data-category="story"] .read-more-link { color: var(--story-neon); }
+        .info-card[data-category="news"] .read-more-link { color: var(--news-neon); }
+        .info-card[data-category="about"] .read-more-link { color: var(--about-neon); }
+
+        .read-more-link:hover {
+            transform: translateX(6px);
+            opacity: 0.85;
+        }
+
+        /* --- IMMERSIVE FULL STORY PAGE VIEW --- */
+        #storyReaderPage {
+            display: none;
+            animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .reader-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--border-glass);
+            border-radius: 32px;
+            padding: 50px;
+            box-shadow: var(--hover-shadow);
+        }
+
+        .back-btn {
+            background: #0f172a;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .reader-content {
+            font-size: 1.2rem;
+            color: #0f172a;
+            line-height: 1.8;
+        }
+        .reader-content p { margin-bottom: 20px; }
+
+        /* --- PREMIUM SYSTEM CREDIT FOOTER BOX --- */
+        .premium-footer {
+            margin-top: 80px;
+            animation: slideUpFade 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .credit-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: var(--gradient-main);
+            padding: 16px 30px;
+            border-radius: 50px 50px 0 0;
+            max-width: 320px;
+            margin: 0 auto;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: #fff;
+            box-shadow: 0 -5px 20px rgba(121, 40, 202, 0.15);
+        }
+
+        .credit-body {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border-glass);
+            border-radius: 28px;
+            padding: 35px 40px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+        }
+
+        .credit-body:hover {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: var(--hover-shadow);
+            border-color: rgba(255, 0, 127, 0.25);
+        }
+
+        .credit-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+        }
+
+        .highlight-name {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        .credit-text {
+            font-size: 1.05rem;
+            color: #475569;
+            line-height: 1.7;
+            max-width: 680px;
+            margin: 0 auto;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        /* Container string storage hidden from layout */
+        .hidden-storage { display: none; }
+    </style>
+</head>
+
+
+<div class="workspace" id="mainDashboardPage">
+    <header>
+        <h1>Everything of Science</h1>
+        <p class="subtitle">Your premium, colorful workspace intelligence network.</p>
+    </header>
+
+    <div class="search-box-wrapper">
+        <input type="text" id="mainSearch" class="search-input" placeholder="Type keywords to filter workspace assets instantly..." onkeyup="filterContent()">
+        <span class="search-icon">⚡</span>
+    </div>
+
+    <div class="category-menu">
+        <button class="menu-btn btn-all active" id="btn-all" onclick="setCategory('all')">👁️ Show All</button>
+        <button class="menu-btn btn-story" id="btn-story" onclick="setCategory('story')">🧬 Science Stories</button>
+        <button class="menu-btn btn-news" id="btn-news" onclick="setCategory('news')">📰 Science News</button>
+        <button class="menu-btn btn-about" id="btn-about" onclick="setCategory('about')">👨‍💻 About Creator</button>
+    </div>
+
+    <div class="results-feed" id="resultsFeed">
+
+
+        <div class="info-card" data-category="about" id="card-thoughts">
+            <span class="category-tag">👨‍💻 Project Developer</span>
+            <h2>Creator's Mind and Mission: A Deep Obsession with Pure Science-</h2>
+            <div class="snippet-text">
+                To understand me, you need to know that science is my main focus and a deep obsession. I look at the universe and refuse to take simple, everyday answers.....
+            </div>
+            <div class="read-more-link" onclick="openFullStory('card-thoughts')">Read The Thoughts➜</div>
+        </div>
+
+
+        <div class="info-card" data-category="story" id="card-frb">
+            <span class="category-tag">🧬 Story Deep-Dive</span>
+            <h2>The Mystery of Deep Space Fast Radio Bursts</h2>
+            <div class="snippet-text">
+                Astrophysicists have registered an incredibly repetitive, rhythmic pattern of powerful radio signals flashing from a galaxy located billions of light-years away...
+            </div>
+            <div class="read-more-link" onclick="openFullStory('card-frb')">Read Full Story➜</div>
+        </div>
+
+
+        <div class="info-card" data-category="story" id="card-artemis">
+            <span class="category-tag">🧬 Story Deep-Dive</span>
+            <h2>The Ultimate Journey: How NASA’s Artemis II Reshaped the Future of Deep Space Exploration</h2>
+            <div class="snippet-text">
+                In April 2026, humanity successfully made space journey the most interesting thing in the whole world for the first time in over half a century. NASA’s Artemis II mission starts the 2nd age of space exploration...
+            </div>
+            <div class="read-more-link" onclick="openFullStory('card-artemis')">Read Full Briefing ➜</div>
+        </div>
+
+
+        <div class="info-card" data-category="news" id="card-battery">
+            <span class="category-tag">📰 Flash News</span>
+            <h2>Next-Gen Solid State Batteries Enter Pilot Production</h2>
+            <div class="snippet-text">
+                A breakthrough framework in solid-electrolyte engineering has reached testing phase, promising double the energy density of current vehicle electronics without thermal risk...
+            </div>
+            <div class="read-more-link" onclick="openFullStory('card-battery')">Read Full Update ➜</div>
+        </div>
+
+
+        <div class="info-card" data-category="about" id="card-creator">
+            <span class="category-tag">👨‍💻 Project Developer</span>
+            <h2>System Architecture & Development Identity</h2>
+            <div class="snippet-text">
+                Discover the background configuration and production credit details supporting the deployment of the-"Everything of Science" workspace platform...
+            </div>
+            <div class="read-more-link" onclick="openFullStory('card-creator')">View Engine Specs ➜</div>
+        </div>
+
+    </div>
+
+
+    <div class="premium-footer">
+        <div class="credit-badge">⚙️ Developer Manifesto</div>
+        <div class="credit-body">
+            <div class="credit-title">Engine Crafted By <span class="highlight-name">THE UNKNOWN</span></div>
+            <p class="credit-text">
+                "A 13 -year-old boy who is just trying to make something. This is his very first creation. He coded most of it, using sandbox layout tools to construct the complex architecture since he is still learning the ropes. He doesn't normally build systems like this, but he possesses the drive to create."
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<div class="workspace" id="storyReaderPage">
+    <button class="back-btn" onclick="closeStoryPage()">⬅ Back to Dashboard</button>
+    <div class="reader-card">
+        <span class="category-tag" id="readerTag">Category</span>
+        <h1 id="readerTitle" style="font-size: 2.5rem; margin-top: 10px; margin-bottom: 25px;">Story Title</h1>
+        <div class="reader-content" id="readerBody">
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="hidden-storage">
+    <div id="text-card-thoughts">
+        <p>To understand me, you need to know that science is my main focus and a deep obsession. I look at the universe and refuse to take simple, everyday answers. My mind is wired to break reality down to its basic mechanics. It’s an exciting and dizzying feeling to see a solid object and immediately view it as a vibrating lattice of tiny atoms held together by electrical quantum forces, floating through a space that curves under the heavy mass of the Earth. I find clarity in knowing that all the chaotic things we experience daily—from how water boils to how magnets attract—are governed by strict, beautifully simple mathematical rules. For me, the ultimate thrill is decoding that hidden blueprint, tracking every cause and effect of the natural world, and watching the messy, random pieces of existence fit together into neat, predictable equations.
+
+        <p>When I turn my scientific lens toward space, my thoughts shift from local mechanics to pure wonder. To my scientific mind, space is not just a dark void; it’s the ultimate playground of physics, a limitless testing ground where nature pushes its laws to their breaking points. I don’t just see bright dots; I think about the incredible mechanics of a massive star's core fusing millions of tons of hydrogen into helium every second, battling its own crushing gravity until it eventually collapses, tearing a hole in the fabric of spacetime. It amazes me to realize that the carbon in my DNA and the iron in my blood were formed in those cosmic star explosions billions of years ago. Space is the big, macro-scale proof of our tiny physics. It’s where the rules of the subatomic world and the laws of massive galaxies confront each other, and thinking about it drives me to help solve that puzzle.
+
+        <p>Ultimately, my thoughts on science come from a restless desire for truth. I am humbled by how much we still have to learn, yet I take pride in the fact that humans—who are essentially small arrangements of organic molecules—have managed to map the leftover radiation from the birth of the universe, split the atom, and calculate how light bends around a gravity well. Science is our true superpower. It takes our fragile, brief existence and gives us a real way to touch infinity. Whether I am studying the tiny spin of an electron in a lab or gazing into the vast dark of the cosmic web, my passion remains unchanged: I want to grasp the underlying code of reality, master the mathematics of nature, and stretch the limits of what humanity can know.
+        </p>
+    </div>
+
+    <div class="hidden-storage">
+        <div id="text-card-frb">
+            <p>These celestial phenomenon bursts release more energy in a millisecond than our Sun produces in an entire day. By charting their localized frequencies, researchers hope to determine whether their origins map back to high-energy magnetars or undiscovered quantum mechanical shifts in deep stellar structural horizons.</p>
+        </div>
+
+        <div id="text-card-artemis">
+            <p>Powered by the immense Space Launch System (SLS) rocket and commanded inside the Orion spacecraft, the historic expedition pushed four elite astronauts further into the void of space than any human being in history, yielding critical data that will fundamentally dictate how humanity settles on the lunar surface and eventually leaps to the only space exploration that will break the internet-Mars.</p>
+            <p>The four-person international crew on board the Orion spacecraft—which they aptly named <em>Integrity</em>—carried the collective ambitions of our entire planet: Commander Reid Wiseman (NASA), Pilot Victor Glover (NASA), Christina Koch (NASA), and Jeremy Hansen (CSA).</p>
+            <p><strong>Charting the Dark Hemisphere:</strong> The climax of the journey occurred when the crew swept behind the lunar far side. Bypassing many robotic mapping tools, the crew used high-powered optical lenses and direct human vision to observe distinct, multicolored surface rays wrapping along the ancient crust. Crucially, the team mapped and photographed two massive, previously undetected craters. The crew officially named one of the craters "Carroll" to honor the late wife of Commander Wiseman.</p>
+            <p><strong>Advanced Bio-Tech in Deep Space:</strong>
+            </p>
+            <p>Because the crew ventured well outside the protective bubble of Earth’s magnetosphere, the interior of
+                the capsule served as a live radiological laboratory. To solve the dangerous health threats of cosmic
+                radiation, the crew monitored advanced organ-on-a-chip hardware. These tiny, microfluidic devices housed
+                live human cell cultures, documenting real-time cellular degradation and genetic changes under
+                microgravity.</p>
+            <p>This achievement officially marks the 2nd age of space exploration....
+        </div>
+
+        <div id="text-card-battery">
+            <p>This pilot platform switches volatile liquid components out for stable chemical matrix barriers. Engineers calculate a theoretical charge lifespan cycle threshold exceeding 500,000 miles before degradation hits 10% capacity metrics.</p>
+        </div>
+
+        <div id="text-card-creator">
+            <p>THIS WEBSITE IS CREATED BY A LITTLE GUY NAMED<span class="highlight-name"> THE UNKNOWN</span>.</p>
+            <p>He is a 13-year-old part-time developer who tries constructing modular web interfaces and exploring backend runtime engines. This environment represents his first full-scale design sandbox layout framework.</p>
+            <p><strong>Technical Stack Configuration:</strong> Built using clean Object-Oriented layouts, component filtering modules, custom CSS backdrop filters, and client-side sharing interfaces built securely for production web layouts.</p>
+        </div>
+    </div>
+
+    <script>
+        let currentCategory = 'all';
+
+        // REAL WEBSITE PAGE ROUTER SYSTEM
+        function openFullStory(cardId) {
+            const card = document.getElementById(cardId);
+            const title = card.querySelector('h2').innerText;
+            const tagText = card.querySelector('.category-tag').innerText;
+            const category = card.getAttribute('data-category');
+
+            // Extract text contents from hidden housing container storage
+            const hiddenContent = document.getElementById('text-' + cardId).innerHTML;
+
+            // Set content details inside inner page view
+            document.getElementById('readerTitle').innerText = title;
+            document.getElementById('readerTag').innerText = tagText;
+            document.getElementById('readerBody').innerHTML = hiddenContent;
+
+            // Set reader layout design styles matching category color configurations
+            const readerPage = document.getElementById('storyReaderPage');
+            readerPage.setAttribute('data-category', category);
+
+            // Hide Dashboard, Show Reading View smoothly
+            document.getElementById('mainDashboardPage').style.display = 'none';
+            readerPage.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function closeStoryPage() {
+            // Hide Reading View, Show Main Dashboard Page
+            document.getElementById('storyReaderPage').style.display = 'none';
+            document.getElementById('mainDashboardPage').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function setCategory(category) {
+            currentCategory = category;
+
+            document.querySelectorAll('.menu-btn').forEach(btn => btn.classList.remove('active'));
+            if(category === 'all') document.getElementById('btn-all').classList.add('active');
+            if(category === 'story') document.getElementById('btn-story').classList.add('active');
+            if(category === 'news') document.getElementById('btn-news').classList.add('active');
+            if(category === 'about') document.getElementById('btn-about').classList.add('active');
+
+            filterContent();
+        }
+
+        function filterContent() {
+            let searchTarget = document.getElementById('mainSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('info-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let card = cards[i];
+                let category = card.getAttribute('data-category');
+                let textContext = card.innerText.toLowerCase();
+
+                let matchCategory = (currentCategory === 'all' || category === currentCategory);
+                let matchSearch = textContext.includes(searchTarget);
+
+                if (matchCategory && matchSearch) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+        }
+
+
+</script>
+
+</div>
+</html>
+<script>
+    // Target your original category buttons
+    const targets = document.querySelectorAll('.menu-btn, .search-box-wrapper');
+
+    targets.forEach(element => {
+        // Set up the 3D space styles dynamically
+        element.style.transition = "transform 0.1s cubic-bezier(0.25, 1, 0.5, 1)";
+        element.parentElement.style.perspective = "1000px";
+
+        element.addEventListener('mousemove', (e) => {
+            const rect = element.getBoundingClientRect();
+
+            // Calculate mouse position relative to the center of the button
+            const x = e.clientX - rect.left - (rect.width / 2);
+            const y = e.clientY - rect.top - (rect.height / 2);
+
+            // Convert position to subtle 3D degrees (Max 15 degree tilt)
+            const calcX = -(y / (rect.height / 2)) * 15;
+            const calcY = (x / (rect.width / 2)) * 15;
+
+            // Apply the 3D rotation and lift effect
+            element.style.transform = `rotateX(${calcX}deg) rotateY(${calcY}deg) scale3d(1.04, 1.04, 1.04)`;
+        });
+
+        // Snap the element back perfectly when the mouse leaves
+        element.addEventListener('mouseleave', () => {
+            element.style.transform = "rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+        });
+    });
+</script>
