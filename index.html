@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Everything of Science</title>
 
+    <!-- ADDED MISSING STYLE TAG BELOW TO FIX THE TEXT WALL ERROR -->
     <style>
+        /* --- CLEAN, MODERN WHITE SYSTEM DESIGN --- */
         :root {
             --bg-main: #ffffff;
             --bg-secondary: #f8fafc;
@@ -22,6 +24,7 @@
             --hover-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
 
+        /* Entry Keyframe Animations */
         @keyframes slideUpFade {
             from {
                 opacity: 0;
@@ -45,6 +48,7 @@
             padding: 0;
         }
 
+        /* --- HERO HEADER SECTION WITH INTEGRATED NAV --- */
         .hero-section {
             position: relative;
             width: 100%;
@@ -172,6 +176,7 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
+        /* --- CONTENT MAIN WORKSPACE --- */
         .workspace {
             max-width: 850px;
             width: 100%;
@@ -180,7 +185,7 @@
             box-sizing: border-box;
         }
 
-
+        /* --- IMMERSIVE SEARCH BAR POPUP (HIDDEN BY DEFAULT) --- */
         .search-box-container {
             display: none;
             max-width: 650px;
@@ -218,7 +223,7 @@
             pointer-events: none;
         }
 
-      
+        /* --- CLEAN NAVIGATION DECK --- */
         .category-menu {
             display: flex;
             justify-content: center;
@@ -245,6 +250,7 @@
             border-color: var(--text-main);
         }
 
+        /* --- CLEAN WHITE RESULTS DECK --- */
         .results-feed {
             display: flex;
             flex-direction: column;
@@ -312,7 +318,7 @@
             transform: translateX(4px);
         }
 
-       
+        /* --- MINIMALIST FULL READING PAGE --- */
         #storyReaderPage {
             display: none;
             max-width: 850px;
@@ -355,6 +361,7 @@
         }
         .reader-content p { margin-bottom: 20px; }
 
+        /* --- CLEAN DEVELOPER MANIFESTO FOOTER --- */
         .premium-footer {
             margin-top: 100px;
             border-top: 1px solid var(--border-clean);
@@ -400,12 +407,15 @@
             font-style: italic;
         }
 
+        /* Container storage */
         .hidden-storage { display: none; }
     </style> <!-- THE STYLESHEET CLOSES PROPERLY HERE NOW -->
 </head>
 <body>
 
-
+    <!-- ==========================================
+         HERO SECTION (WHAT VISITORS SEE FIRST)
+         ========================================== -->
     <div class="hero-section" id="heroView">
 
         <!-- 1. THE HERO PHOTO DECK -->
@@ -415,6 +425,7 @@
             <div class="hero-overlay"></div>
         </div>
 
+        <!-- NAVIGATION BAR (TOP RIGHT DECK) -->
         <nav>
             <div class="logo">Everything of Science</div>
             <div class="nav-links">
@@ -425,6 +436,7 @@
             </div>
         </nav>
 
+        <!-- Central Welcome Text inside Image View -->
         <div class="hero-content">
             <h1>Everything of Science</h1>
             <p class="subtitle">Your premium, clean workspace intelligence network.</p>
@@ -433,7 +445,9 @@
     </div>
 
 
- 
+    <!-- ==========================================
+         DASHBOARD CONTAINER WORKSPACE
+         ========================================== -->
     <div class="workspace" id="mainDashboardPage">
 
         <!-- Immersive Search Box Framework -->
@@ -443,6 +457,7 @@
             <span class="search-icon">🔍</span>
         </div>
 
+        <!-- Filter Deck Elements -->
         <div class="category-menu">
             <button class="menu-btn active" id="btn-all" onclick="setCategory('all')">Show All</button>
             <button class="menu-btn" id="btn-story" onclick="setCategory('story')">Science Stories</button>
@@ -450,7 +465,7 @@
             <button class="menu-btn" id="btn-about" onclick="setCategory('about')">About Creator</button>
         </div>
 
-
+        <!-- Content Cards -->
         <div class="results-feed" id="resultsFeed">
 
             <div class="info-card" data-category="about" id="card-thoughts">
@@ -502,6 +517,9 @@
     </div>
 
 
+    <!-- ==========================================
+         IMMERSIVE READING LAYOUT MODULE
+         ========================================== -->
     <div id="storyReaderPage">
         <button class="back-btn" onclick="closeStoryPage()">⬅ Back to Dashboard</button>
         <div class="reader-card">
@@ -512,7 +530,9 @@
     </div>
 
 
-
+    <!-- ==========================================
+         DEVELOPER MANIFESTO FOOTER SECTION
+         ========================================== -->
     <footer class="premium-footer">
         <div class="footer-wrap">
             <div class="credit-badge">⚙️ Developer Manifesto</div>
@@ -524,7 +544,9 @@
     </footer>
 
 
-   
+    <!-- ==========================================
+         HIDDEN DATA HOUSING CONTAINER
+         ========================================== -->
     <div class="hidden-storage">
         <div id="text-card-thoughts">
             <p>To understand me, you need to know that science is my main focus and a deep obsession. I look at the universe and refuse to take simple, everyday answers. My mind is wired to break reality down to its basic mechanics. It’s an exciting and dizzying feeling to see a solid object and immediately view it as a vibrating lattice of tiny atoms held together by electrical quantum forces, floating through a space that curves under the heavy mass of the Earth. I find clarity in knowing that all the chaotic things we experience daily—from how water boils to how magnets attract—are governed by strict, beautifully simple mathematical rules. For me, the ultimate thrill is decoding that hidden blueprint, tracking every cause and effect of the natural world, and watching the messy, random pieces of existence fit together into neat, predictable equations.</p>
@@ -556,14 +578,18 @@
     </div>
 
 
-  
+    <!-- ==========================================
+         DYNAMIC CLIENT OPERATIONS SCRIPT
+         ========================================== -->
     <script>
         let currentCategory = 'all';
 
+        // 1. SCROLL DOWN TO CONTENTS INTERACTION
         function scrollToContent() {
             document.getElementById('mainDashboardPage').scrollIntoView({ behavior: 'smooth' });
         }
 
+        // 2. TOGGLE ACTION FOR SEARCH CONTAINER POPUP
         function toggleSearchBox() {
             const searchContainer = document.getElementById('searchBoxContainer');
             if (searchContainer.style.display === 'block') {
@@ -575,7 +601,7 @@
             }
         }
 
-
+        // 3. CORE ROUTER ENGINE FOR READING ARTICLES
         function openFullStory(cardId) {
             const card = document.getElementById(cardId);
             const title = card.querySelector('h2').innerText;
@@ -600,7 +626,7 @@
             scrollToContent();
         }
 
-    
+        // 4. CATEGORY CONTROLLERS
         function setCategory(category) {
             currentCategory = category;
             document.querySelectorAll('.menu-btn').forEach(btn => btn.classList.remove('active'));
@@ -613,7 +639,7 @@
             filterContent();
         }
 
-
+        // 5. LIVE MATRIX SEARCH ENGINE INTERACTION
         function filterContent() {
             let searchTarget = document.getElementById('mainSearch').value.toLowerCase();
             let cards = document.getElementsByClassName('info-card');
